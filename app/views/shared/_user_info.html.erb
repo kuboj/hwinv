@@ -8,5 +8,5 @@
   <%= link_to "view my profile", current_user %>
 </span>
 <span>
-  <%= pluralize(current_user.microposts.count, "micropost") %>
+  Privileges: <%= current_user.admin? ? 'admin' : 'user' %>
 </span>

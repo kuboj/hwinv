@@ -9,4 +9,8 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :hardware_type do
+    sequence(:name) { |n| "HW type #{n}" }
+  end
 end

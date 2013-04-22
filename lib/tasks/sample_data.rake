@@ -1,14 +1,9 @@
 namespace :db do
   desc 'Fill database with sample data'
   task populate: :environment do
-    #create_admin
+    create_admin
     create_users
-    #create_hardware_types
   end
-end
-
-def create_hardware_types
-  %w(router server switch hard_drive).each { |n| HardwareType.create(name: n) }
 end
 
 def create_admin

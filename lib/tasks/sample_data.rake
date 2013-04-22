@@ -3,12 +3,7 @@ namespace :db do
   task populate: :environment do
     create_admin
     create_users
-    create_hardware_types
   end
-end
-
-def create_hardware_types
-  %w(router server switch hard_drive).each { |n| HardwareType.create(name: n) }
 end
 
 def create_admin
@@ -20,7 +15,7 @@ def create_admin
 end
 
 def create_users
-  99.times do |n|
+  5.times do |n|
     name  = Faker::Name.name
     email = "example-#{n+1}@example.com"
     password  = "password"

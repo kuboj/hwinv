@@ -16,6 +16,7 @@ end
 
 group :development do
   gem 'annotate', '2.5.0'
+  gem 'mysql2',   '0.3.11'
 end
 
 group :assets do

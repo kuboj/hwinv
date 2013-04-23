@@ -1,0 +1,29 @@
+<h1>Listing server_racks</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Datacenter</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @server_racks.each do |server_rack| %>
+  <tr>
+    <td><%= server_rack.name %></td>
+    <td><%= server_rack.datacenter_id %></td>
+    <td><%= link_to 'Show', server_rack %></td>
+    <% if current_user.admin? %>
+      <td><%= link_to 'Edit', edit_server_rack_path(server_rack) %></td>
+      <td><%= link_to 'Destroy', server_rack, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if current_user.admin? %>
+  <%= link_to 'New Server rack', new_server_rack_path %>
+<% end %>

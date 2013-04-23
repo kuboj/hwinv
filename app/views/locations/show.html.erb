@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Rack unit:</b>
+  <%= @location.rack_unit_id %>
+</p>
+
+<p>
+  <b>Hardware:</b>
+  <%= @location.hardware_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>

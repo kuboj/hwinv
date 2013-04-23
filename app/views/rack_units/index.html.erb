@@ -1,0 +1,29 @@
+<h1>Listing rack_units</h1>
+
+<table>
+  <tr>
+    <th>Server rack</th>
+    <th>Row number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rack_units.each do |rack_unit| %>
+  <tr>
+    <td><%= rack_unit.server_rack_id %></td>
+    <td><%= rack_unit.row_number %></td>
+    <td><%= link_to 'Show', rack_unit %></td>
+    <% if current_user.admin? %>
+      <td><%= link_to 'Edit', edit_rack_unit_path(rack_unit) %></td>
+      <td><%= link_to 'Destroy', rack_unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if current_user.admin? %>
+  <%= link_to 'New Rack unit', new_rack_unit_path %>
+<% end %>

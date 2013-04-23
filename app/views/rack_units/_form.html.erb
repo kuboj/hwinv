@@ -1,25 +1,11 @@
-<%= form_for(@rack_unit) do |f| %>
-  <% if @rack_unit.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@rack_unit.errors.count, "error") %> prohibited this rack_unit from being saved:</h2>
-
-      <ul>
-      <% @rack_unit.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :server_rack_id %><br />
-    <%= f.number_field :server_rack_id %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for([@datacenter, @server_rack, @rack_unit]) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :row_number %>
+      <%= f.number_field :row_number %>
+      <%= f.submit yield(:button_text), class: "btn btn-large btn-primary" %>
+      <%= link_to 'Back', datacenter_server_rack_rack_units_path(@datacenter, @server_rack), class: "btn btn-large" %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :row_number %><br />
-    <%= f.number_field :row_number %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

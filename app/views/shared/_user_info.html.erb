@@ -1,9 +1,14 @@
-<a href="<%= user_path(current_user) %>">
-  <%= gravatar_for current_user, size: 52 %>
-</a>
-<h1>
-  <%= current_user.name %>
-</h1>
-<span>
-  Privileges: <%= current_user.admin? ? 'admin' : 'user' %>
-</span>
+<table class='table table-bordered table-condensed'>
+  <tr>
+    <td>Logged as:</td>
+    <td><strong><%= current_user.name %></strong></td>
+  </tr>
+  <tr>
+    <td>Email:</td>
+    <td><%= current_user.email %></td>
+  </tr>
+  <tr>
+    <td>Privileges:</td>
+    <td><%= current_user.admin? ? 'admin' : 'user' %></td>
+  </tr>
+</table>

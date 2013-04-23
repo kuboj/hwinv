@@ -1,16 +1,16 @@
 class ServerRacksController < ApplicationController
   before_filter :signed_in_user
+  before_filter :init_datacenter
   before_filter :admin_user, except: :index
-  before_filter :init_datacenter, only: [:create, :edit, :destroy, :update]
 
-  #def index
-  #  @server_racks = ServerRack.all
-  #
-  #  respond_to do |format|
-  #    format.html
-  #    format.json { render json: @server_racks }
-  #  end
-  #end
+  def index
+    @server_racks = @datacenter.server_racks.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @server_racks }
+    end
+  end
 
   #def show
   #  @server_rack = ServerRack.find(params[:id])
@@ -22,7 +22,7 @@ class ServerRacksController < ApplicationController
   #end
 
   def new
-    @server_rack = ServerRack.new
+    @server_rack = @datacenter.server_racks.build
 
     respond_to do |format|
       format.html
@@ -31,7 +31,7 @@ class ServerRacksController < ApplicationController
   end
 
   def edit
-    @server_rack = ServerRack.find(params[:id])
+    @server_rack = @datacenter.server_racks.find(params[:id])
   end
 
   def create
@@ -39,7 +39,7 @@ class ServerRacksController < ApplicationController
 
     respond_to do |format|
       if @server_rack.save
-        format.html { redirect_to server_racks_path, notice: 'Server rack was successfully created.' }
+        format.html { redirect_to datacenter_server_racks_path(@datacenter), notice: 'Server rack was successfully created.' }
         format.json { render json: @server_rack, status: :created, location: @server_rack }
       else
         format.html { render action: "new" }
@@ -53,7 +53,7 @@ class ServerRacksController < ApplicationController
 
     respond_to do |format|
       if @server_rack.update_attributes(params[:server_rack])
-        format.html { redirect_to server_racks_path, notice: 'Server rack was successfully updated.' }
+        format.html { redirect_to datacenter_server_racks_path(@datacenter), notice: 'Server rack was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -67,14 +67,13 @@ class ServerRacksController < ApplicationController
     @server_rack.destroy
 
     respond_to do |format|
-      format.html { redirect_to server_racks_url, notice: 'Server rack was successfully deleted.'  }
+      format.html { redirect_to datacenter_server_racks_path(@datacenter), notice: 'Server rack was successfully deleted.'  }
       format.json { head :no_content }
     end
   end
 
   private
   def init_datacenter
-    abort(params.to_json)
-    @datacenter = Datacenter.find(params[:server_rack][:datacenter_id])
+    @datacenter = Datacenter.find(params[:datacenter_id])
   end
 end

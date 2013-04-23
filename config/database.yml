@@ -22,7 +22,10 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: mysql2
+  database: hwinv
   pool: 5
   timeout: 5000
+  hostname: 37.205.10.125
+  username: hwinv
+  password: JV63bdy6GAxvrD3S

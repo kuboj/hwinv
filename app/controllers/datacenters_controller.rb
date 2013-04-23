@@ -2,14 +2,14 @@ class DatacentersController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, except: :index
 
-  def index
-    @datacenters = Datacenter.all
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @datacenters }
-    end
-  end
+  #def index
+  #  @datacenters = Datacenter.all
+  #
+  #  respond_to do |format|
+  #    format.html
+  #    format.json { render json: @datacenters }
+  #  end
+  #end
 
   #def show
   #  @datacenter = Datacenter.find(params[:id])

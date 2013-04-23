@@ -1,0 +1,22 @@
+<% provide(:title, 'Datacenters') %>
+<h1>Listing datacenters</h1>
+<div class="row">
+  <div class="span6 offset3">
+
+    <%= render 'shared/back_button', path: datacenters_path %>
+  </div>
+</div>
+
+<p>
+  <b>Address:</b>
+  <%= @datacenter.address %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @datacenter.name %>
+</p>
+
+<%= link_to 'Edit', edit_datacenter_path(@datacenter) %> |
+<%= link_to 'Back', datacenters_path %>
+

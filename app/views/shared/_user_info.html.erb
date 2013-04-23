@@ -5,8 +5,5 @@
   <%= current_user.name %>
 </h1>
 <span>
-  <%= link_to "view my profile", current_user %>
-</span>
-<span>
   Privileges: <%= current_user.admin? ? 'admin' : 'user' %>
 </span>

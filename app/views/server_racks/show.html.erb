@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @server_rack.name %>
+</p>
+
+<p>
+  <b>Datacenter:</b>
+  <%= @server_rack.datacenter_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_server_rack_path(@server_rack) %> |
+<%= link_to 'Back', server_racks_path %>

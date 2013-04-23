@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@datacenter) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit yield(:button_text), class: "btn btn-large btn-primary" %>
+      <%= link_to 'Back', datacenters_path, class: "btn btn-large" %>
+    <% end %>
+  </div>
+</div>

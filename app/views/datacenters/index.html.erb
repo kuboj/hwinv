@@ -1,0 +1,27 @@
+<% provide(:title, 'Datacenters') %>
+<h1>Listing datacenters</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <table class='table table-hover'>
+      <tr>
+        <th>Address</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+
+    <% @datacenters.each do |datacenter| %>
+      <tr>
+        <td><%= datacenter.address %></td>
+        <td><%= datacenter.name %></td>
+        <td><%= render 'shared/actions', object: datacenter %></td>
+      </tr>
+    <% end %>
+    </table>
+    <br />
+
+    <% if current_user.admin? %>
+      <%= render 'shared/new_button', model: Datacenter %>
+    <% end %>
+    <%= render 'shared/back_button', path: root_path %>
+  </div>
+</div>

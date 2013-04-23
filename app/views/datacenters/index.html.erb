@@ -1,11 +1,12 @@
 <% provide(:title, 'Datacenters') %>
-<h1>Listing datacenters</h1>
+<h1>Datacenters</h1>
 <div class="row">
   <div class="span6 offset3">
     <table class='table table-hover'>
       <tr>
         <th>Address</th>
         <th>Name</th>
+        <th># of server racks</th>
         <th>Actions</th>
       </tr>
 
@@ -13,14 +14,21 @@
       <tr>
         <td><%= datacenter.address %></td>
         <td><%= datacenter.name %></td>
-        <td><%= render 'shared/actions', object: datacenter %></td>
+        <td><%= datacenter.server_racks.count %></td>
+        <td>
+          <%= render 'shared/button', path: datacenter_server_racks_path(datacenter), title: 'Server racks', icon: 'th-list' %>
+          <% if current_user.admin? %>
+            <%= render 'shared/edit_button',   path: edit_datacenter_path(datacenter) %>
+            <%= render 'shared/delete_button', path: datacenter_path(datacenter) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
     </table>
     <br />
 
     <% if current_user.admin? %>
-      <%= render 'shared/new_button', model: Datacenter %>
+      <%= render 'shared/new_button', path: new_datacenter_path %>
     <% end %>
     <%= render 'shared/back_button', path: root_path %>
   </div>

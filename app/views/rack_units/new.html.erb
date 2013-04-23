@@ -1,5 +1,7 @@
-<h1>New rack_unit</h1>
+<% provide(:title,       'New rack unit') %>
+<% provide(:button_text, 'Create') %>
+<h1><%= @datacenter.name %></h1>
+<h2><%= @server_rack.name %></h2>
+<h3>New server unit</h3>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', rack_units_path %>

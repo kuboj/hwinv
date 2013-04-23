@@ -10,6 +10,10 @@
 
 class RackUnit < ActiveRecord::Base
   attr_accessible :row_number, :server_rack_id
+
   belongs_to :server_rack
-  has_many :hardwares, through: :locations
+  has_many   :hardwares, through: :locations
+
+  validates :server_rack_id, presence: true
+  validates :row_number,     presence: true
 end

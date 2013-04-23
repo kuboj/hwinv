@@ -1,29 +1,37 @@
-<h1>Listing rack_units</h1>
+<% provide(:title, 'Rack units') %>
+<h1><%= @datacenter.name %></h1>
+<h2><%= @server_rack.name %></h2>
+<h3>Server racks</h3>
 
-<table>
-  <tr>
-    <th>Server rack</th>
-    <th>Row number</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="row">
+  <div class="span6 offset3">
+    <table class='table table-hover'>
+      <tr>
+        <th>Row number</th>
+        <th>Actions</th>
+      </tr>
 
-<% @rack_units.each do |rack_unit| %>
-  <tr>
-    <td><%= rack_unit.server_rack_id %></td>
-    <td><%= rack_unit.row_number %></td>
-    <td><%= link_to 'Show', rack_unit %></td>
+      <% @rack_units.each do |rack_unit| %>
+        <tr>
+          <td><%= rack_unit.row_number %></td>
+          <td>
+            <% if current_user.admin? %>
+              <%= render 'shared/edit_button',   path: edit_datacenter_server_rack_rack_unit_path(@datacenter,
+                                                                                                  @server_rack,
+                                                                                                  rack_unit) %>
+              <%= render 'shared/delete_button', path: datacenter_server_rack_rack_unit_path(@datacenter,
+                                                                                             @server_rack,
+                                                                                             rack_unit) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <br />
+
     <% if current_user.admin? %>
-      <td><%= link_to 'Edit', edit_rack_unit_path(rack_unit) %></td>
-      <td><%= link_to 'Destroy', rack_unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%= render 'shared/new_button', path: new_datacenter_server_rack_rack_unit_path %>
     <% end %>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<% if current_user.admin? %>
-  <%= link_to 'New Rack unit', new_rack_unit_path %>
-<% end %>
+    <%= render 'shared/back_button', path: datacenter_server_racks_path(@datacenter) %>
+  </div>
+</div>

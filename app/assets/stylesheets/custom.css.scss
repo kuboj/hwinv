@@ -49,12 +49,17 @@ h1 {
 }
 
 h2 {
-  font-size: 1.7em;
+  font-size: 1.9em;
   letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
-  font-weight: normal;
-  color: $grayLight;
+}
+
+h3 {
+  font-size: 1.2em;
+  letter-spacing: -0.5px;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 p {

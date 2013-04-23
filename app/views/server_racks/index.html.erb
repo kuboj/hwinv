@@ -1,27 +1,35 @@
 <% provide(:title, 'Server racks') %>
-<h1>Listing server racks</h1>
+<h1><%= @datacenter.name %></h1>
+<h2>Server racks</h2>
+
 <div class="row">
   <div class="span6 offset3">
     <table class='table table-hover'>
       <tr>
         <th>Name</th>
-        <th>Datacenter</th>
+        <th># of rack units</th>
         <th>Actions</th>
       </tr>
 
       <% @server_racks.each do |server_rack| %>
         <tr>
           <td><%= server_rack.name %></td>
-          <td><%= server_rack.datacenter.name %></td>
-          <td><%= render 'shared/actions', object: server_rack %></td>
+          <td><%= server_rack.rack_units.count %></td>
+          <td>
+            <%= render 'shared/button', path: datacenter_server_rack_rack_units_path(@datacenter, server_rack), title: 'Rack units', icon: 'align-justify' %>
+            <% if current_user.admin? %>
+              <%= render 'shared/edit_button',   path: edit_datacenter_server_rack_path(@datacenter, server_rack) %>
+              <%= render 'shared/delete_button', path: datacenter_server_rack_path(@datacenter, server_rack) %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </table>
     <br />
 
     <% if current_user.admin? %>
-      <%= render 'shared/new_button', model: ServerRack %>
+      <%= render 'shared/new_button', path: new_datacenter_server_rack_path %>
     <% end %>
-    <%= render 'shared/back_button', path: root_path %>
+    <%= render 'shared/back_button', path: datacenters_path %>
   </div>
 </div>

@@ -1,15 +1,18 @@
 SampleApp::Application.routes.draw do
   resources :hardwares
   resources :parameters
-  resources :rack_units
   resources :keys
   resources :positions
   resources :locations
   resources :purchases
-  resources :datacenters
-  resources :server_racks
   resources :users
   resources :sessions,    only: [:new, :create, :destroy]
+
+  resources :datacenters do
+    resources :server_racks do
+      resources :rack_units
+    end
+  end
 
   root to: 'static_pages#home'
 

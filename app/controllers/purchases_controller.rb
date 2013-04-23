@@ -2,46 +2,37 @@ class PurchasesController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, except: :index
 
-  # GET /purchases
-  # GET /purchases.json
   def index
     @purchases = Purchase.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @purchases }
     end
   end
 
-  # GET /purchases/1
-  # GET /purchases/1.json
   def show
     @purchase = Purchase.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @purchase }
     end
   end
 
-  # GET /purchases/new
-  # GET /purchases/new.json
   def new
     @purchase = Purchase.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @purchase }
     end
   end
 
-  # GET /purchases/1/edit
   def edit
     @purchase = Purchase.find(params[:id])
   end
 
-  # POST /purchases
-  # POST /purchases.json
   def create
     @purchase = Purchase.new(params[:purchase])
 
@@ -56,8 +47,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  # PUT /purchases/1
-  # PUT /purchases/1.json
   def update
     @purchase = Purchase.find(params[:id])
 
@@ -72,8 +61,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  # DELETE /purchases/1
-  # DELETE /purchases/1.json
   def destroy
     @purchase = Purchase.find(params[:id])
     @purchase.destroy

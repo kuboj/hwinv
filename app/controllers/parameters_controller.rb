@@ -2,46 +2,37 @@ class ParametersController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, except: :index
 
-  # GET /parameters
-  # GET /parameters.json
   def index
     @parameters = Parameter.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @parameters }
     end
   end
 
-  # GET /parameters/1
-  # GET /parameters/1.json
   def show
     @parameter = Parameter.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @parameter }
     end
   end
 
-  # GET /parameters/new
-  # GET /parameters/new.json
   def new
     @parameter = Parameter.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @parameter }
     end
   end
 
-  # GET /parameters/1/edit
   def edit
     @parameter = Parameter.find(params[:id])
   end
 
-  # POST /parameters
-  # POST /parameters.json
   def create
     @parameter = Parameter.new(params[:parameter])
 
@@ -56,8 +47,6 @@ class ParametersController < ApplicationController
     end
   end
 
-  # PUT /parameters/1
-  # PUT /parameters/1.json
   def update
     @parameter = Parameter.find(params[:id])
 
@@ -72,8 +61,6 @@ class ParametersController < ApplicationController
     end
   end
 
-  # DELETE /parameters/1
-  # DELETE /parameters/1.json
   def destroy
     @parameter = Parameter.find(params[:id])
     @parameter.destroy

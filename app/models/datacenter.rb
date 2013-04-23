@@ -10,5 +10,8 @@
 
 class Datacenter < ActiveRecord::Base
   attr_accessible :address, :name
-  has_many :server_racks
+  has_many  :server_racks
+
+  validates :address, presence: true
+  validates :name,    presence: true
 end

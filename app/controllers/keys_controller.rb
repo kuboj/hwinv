@@ -2,46 +2,37 @@ class KeysController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, except: :index
 
-  # GET /keys
-  # GET /keys.json
   def index
     @keys = Key.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @keys }
     end
   end
 
-  # GET /keys/1
-  # GET /keys/1.json
   def show
     @key = Key.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @key }
     end
   end
 
-  # GET /keys/new
-  # GET /keys/new.json
   def new
     @key = Key.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @key }
     end
   end
 
-  # GET /keys/1/edit
   def edit
     @key = Key.find(params[:id])
   end
 
-  # POST /keys
-  # POST /keys.json
   def create
     @key = Key.new(params[:key])
 
@@ -56,8 +47,6 @@ class KeysController < ApplicationController
     end
   end
 
-  # PUT /keys/1
-  # PUT /keys/1.json
   def update
     @key = Key.find(params[:id])
 
@@ -72,8 +61,6 @@ class KeysController < ApplicationController
     end
   end
 
-  # DELETE /keys/1
-  # DELETE /keys/1.json
   def destroy
     @key = Key.find(params[:id])
     @key.destroy

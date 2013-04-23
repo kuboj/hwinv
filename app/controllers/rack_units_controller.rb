@@ -2,46 +2,37 @@ class RackUnitsController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, except: :index
 
-  # GET /rack_units
-  # GET /rack_units.json
   def index
     @rack_units = RackUnit.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @rack_units }
     end
   end
 
-  # GET /rack_units/1
-  # GET /rack_units/1.json
   def show
     @rack_unit = RackUnit.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @rack_unit }
     end
   end
 
-  # GET /rack_units/new
-  # GET /rack_units/new.json
   def new
     @rack_unit = RackUnit.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @rack_unit }
     end
   end
 
-  # GET /rack_units/1/edit
   def edit
     @rack_unit = RackUnit.find(params[:id])
   end
 
-  # POST /rack_units
-  # POST /rack_units.json
   def create
     @rack_unit = RackUnit.new(params[:rack_unit])
 
@@ -56,8 +47,6 @@ class RackUnitsController < ApplicationController
     end
   end
 
-  # PUT /rack_units/1
-  # PUT /rack_units/1.json
   def update
     @rack_unit = RackUnit.find(params[:id])
 
@@ -72,8 +61,6 @@ class RackUnitsController < ApplicationController
     end
   end
 
-  # DELETE /rack_units/1
-  # DELETE /rack_units/1.json
   def destroy
     @rack_unit = RackUnit.find(params[:id])
     @rack_unit.destroy

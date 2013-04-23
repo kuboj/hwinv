@@ -1,25 +1,13 @@
-<%= form_for(@datacenter) do |f| %>
-  <% if @datacenter.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@datacenter.errors.count, "error") %> prohibited this datacenter from being saved:</h2>
-
-      <ul>
-      <% @datacenter.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@datacenter) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit yield(:button_text), class: "btn btn-large btn-primary" %>
+      <%= link_to 'Back', datacenters_path, class: "btn btn-large" %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

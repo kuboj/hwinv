@@ -16,4 +16,8 @@ class Hardware < ActiveRecord::Base
              class_name:  to_s
   belongs_to :parent_hardware,
              class_name:  to_s
+  validates :name, presence:   true,
+                   length:     { maximum: 100 },
+                   uniqueness: { case_sensitive: false }
+  before_save { |hardware| hardware.email = hardware.downcase }
 end

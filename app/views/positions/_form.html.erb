@@ -1,21 +1,11 @@
-<%= form_for(@position) do |f| %>
-  <% if @position.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@position.errors.count, "error") %> prohibited this position from being saved:</h2>
-
-      <ul>
-      <% @position.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@position) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit yield(:button_text), class: "btn btn-large btn-primary" %>
+      <%= link_to 'Back', positions_path, class: "btn btn-large" %>
+    <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

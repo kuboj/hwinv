@@ -1,29 +1,61 @@
-<%= form_for(@hardware) do |f| %>
-  <% if @hardware.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@hardware.errors.count, "error") %> prohibited this hardware from being saved:</h2>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_tag '/hardwares', class: 'hardware' do %>
+      <%= render 'shared/error_messages', object: @hardware %>
+      <%= label_tag :name %>
+      <%= text_field_tag :name %>
 
-      <ul>
-      <% @hardware.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <%= field_set_tag('Purchase information') do %>
+        <%= radio_button_tag(:purchase, 'yes') %>
+        <%= label_tag(:purchase_yes, 'Fill in purchase details') %>
+
+        <br />
+        <br />
+
+        <%= radio_button_tag(:purchase, 'no') %>
+        <%= label_tag(:purchase_no, 'No purchase info') %>
+
+        <br />
+        <br />
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+      <%= field_set_tag('Physical location') do %>
+        <%= radio_button_tag(:location, 'parent') %>
+        <%= label_tag(:location_parent, 'As a child hardware') %>
+        
+        <br />
+        <br />
+
+        <%= radio_button_tag(:location, 'physical') %>
+        <%= label_tag(:location_physical, 'Select physical location') %>
+
+        <br />
+        <br />
+
+        <%= label_tag :parent_hardware, 'Parent hardware' %>
+        <%= select_tag(:parent_hardware, options_for_select(@hardwares), include_blank: true) %>
+
+        <%= content_tag(:div, id: 'datacenters_div', style: 'display:none;') do %>
+          <%= label_tag :location %>
+          <%= select_tag(:datacenter, options_for_select(@datacenters), include_blank: true) %>
+        <% end %>
+
+        <%= content_tag(:div, id: 'server_racks_div', style: 'display:none;') do %>
+          <%= label_tag :server_rack %>
+          <%= select_tag(:server_rack, options_for_select(@server_racks), include_blank: true) %>
+        <% end %>
+
+        <%= content_tag(:div, id: 'rack_units_div', style: 'display:none;') do %>
+          <%= label_tag :rack_unit %>
+          <%= select_tag(:rack_unit, options_for_select(@rack_units), include_blank: true,
+                                                                      multiple:      true,
+                                                                      size:          10) %>
+        <% end %>
+
+      <% end %>
+
+      <%= submit_tag yield(:button_text), class: "btn btn-large btn-primary" %>
+      <%= link_to 'Back', hardwares_path, class: "btn btn-large" %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :parent_hardware_id %><br />
-    <%= f.number_field :parent_hardware_id %>
-  </div>
-  <div class="field">
-    <%= f.label :position_id %><br />
-    <%= f.number_field :position_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

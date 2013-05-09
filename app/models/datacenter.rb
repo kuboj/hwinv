@@ -12,6 +12,9 @@ class Datacenter < ActiveRecord::Base
   attr_accessible :address, :name
   has_many  :server_racks, dependent: :destroy
 
-  validates :address, presence: true, uniqueness: true
-  validates :name,    presence: true, uniqueness: true
+  validates :address, presence: true,
+                      uniqueness: true
+  validates :name,    presence:   true,
+                      uniqueness: { case_sensitive: false },
+                      length:     { maximum: 50 }
 end

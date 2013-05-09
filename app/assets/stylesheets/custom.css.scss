@@ -200,3 +200,25 @@ input {
 select {
   padding: 0;
 }
+
+.hardware {
+  fieldset {
+    border: 1px solid #CCC;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+  }
+
+  legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    width: auto;
+  }
+
+  label {
+    display: inline;
+  }
+}
+
+
+

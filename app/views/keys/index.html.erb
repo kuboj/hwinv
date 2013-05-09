@@ -1,27 +1,30 @@
-<h1>Listing keys</h1>
+<% provide(:title, 'Keys') %>
+<h1>Keys</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <table class='table table-hover'>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+      <% @keys.each do |key| %>
+        <tr>
+          <td><%= key.name %></td>
+          <td>
+            <% if current_user.admin? %>
+              <%= render 'shared/edit_button',   path: edit_key_path(key) %>
+              <%= render 'shared/delete_button', path: key_path(key) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <br />
 
-<% @keys.each do |key| %>
-  <tr>
-    <td><%= key.name %></td>
-    <td><%= link_to 'Show', key %></td>
     <% if current_user.admin? %>
-      <td><%= link_to 'Edit', edit_key_path(key) %></td>
-      <td><%= link_to 'Destroy', key, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%= render 'shared/new_button', path: new_key_path %>
     <% end %>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<% if current_user.admin? %>
-  <%= link_to 'New Key', new_key_path %>
-<% end %>
+    <%= render 'shared/back_button', path: root_path %>
+  </div>
+</div>

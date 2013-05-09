@@ -1,12 +1,14 @@
 SampleApp::Application.routes.draw do
-  resources :hardwares
   resources :parameters
   resources :keys
   resources :positions
   resources :locations
-  resources :purchases
   resources :users
-  resources :sessions,    only: [:new, :create, :destroy]
+  resources :sessions, only: [:new, :create, :destroy]
+
+  resources :hardwares do
+    resources :purchases
+  end
 
   resources :datacenters do
     resources :server_racks do

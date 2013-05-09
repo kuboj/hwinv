@@ -15,7 +15,9 @@ class ServerRack < ActiveRecord::Base
   belongs_to :datacenter
   has_many   :rack_units, dependent: :destroy
 
-  validates :name,             presence: true, uniqueness: true
+  validates :name, presence:   true,
+                   uniqueness: { case_sensitive: false },
+                   length:     { maximum: 50 }
   validates :datacenter_id,    presence: true
   validates :rack_units_count, presence: true
 

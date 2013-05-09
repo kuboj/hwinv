@@ -3,7 +3,7 @@ development:
   database: hwinv
   pool: 5
   timeout: 5000
-  host: 37.205.10.125
+  host: localhost
   username: hwinv
   password: JV63bdy6GAxvrD3S
 

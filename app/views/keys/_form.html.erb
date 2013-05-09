@@ -1,21 +1,11 @@
-<%= form_for(@key) do |f| %>
-  <% if @key.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@key.errors.count, "error") %> prohibited this key from being saved:</h2>
-
-      <ul>
-      <% @key.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@key) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit yield(:button_text), class: "btn btn-large btn-primary" %>
+      <%= link_to 'Back', keys_path, class: "btn btn-large" %>
+    <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

@@ -66,7 +66,7 @@ class KeysController < ApplicationController
     @key.destroy
 
     respond_to do |format|
-      format.html { redirect_to keys_url,notice: 'Key was successfully deleted.' }
+      format.html { redirect_to keys_url, notice: 'Key was successfully deleted.' }
       format.json { head :no_content }
     end
   end

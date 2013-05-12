@@ -1,37 +1,40 @@
-<h1>Listing purchases</h1>
+<% provide(:title, 'Purchases') %>
+<h1>Purchases</h1>
+<div class="row">
+  <div class="span10 offset1">
+    <table class='table table-hover'>
+      <tr>
+        <th>Name</th>
+        <th>Purchased at</th>
+        <th>Warranty until</th>
+        <th>Price</th>
+        <th>Currency</th>
+        <th>Hardware</th>
+        <th>Actions</th>
+      </tr>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Purchased at</th>
-    <th>Warranty until</th>
-    <th>Price</th>
-    <th>Currency</th>
-    <th>Hardware</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+      <% @purchases.each do |purchase| %>
+        <tr>
+          <td><%= purchase.name %></td>
+          <td><%= purchase.purchased_at %></td>
+          <td><%= purchase.warranty_until %></td>
+          <td><%= purchase.price %></td>
+          <td><%= purchase.currency %></td>
+          <td><%= purchase.hardware_id %></td>
+          <td>
+            <% if current_user.admin? %>
+              <%= render 'shared/edit_button',   path: edit_purchase_path(purchase) %>
+              <%= render 'shared/delete_button', path: purchase_path(purchase) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <br />
 
-<% @purchases.each do |purchase| %>
-  <tr>
-    <td><%= purchase.name %></td>
-    <td><%= purchase.purchased_at %></td>
-    <td><%= purchase.warranty_until %></td>
-    <td><%= purchase.price %></td>
-    <td><%= purchase.currency %></td>
-    <td><%= purchase.hardware_id %></td>
-    <td><%= link_to 'Show', purchase %></td>
     <% if current_user.admin? %>
-      <td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
-      <td><%= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%= render 'shared/new_button', path: new_purchase_path %>
     <% end %>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<% if current_user.admin? %>
-  <%= link_to 'New Purchase', new_purchase_path %>
-<% end %>
+    <%= render 'shared/back_button', path: root_path %>
+  </div>
+</div>

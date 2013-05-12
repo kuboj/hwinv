@@ -14,4 +14,13 @@
 
 class Purchase < ActiveRecord::Base
   attr_accessible :currency, :hardware_id, :name, :price, :purchased_at, :warranty_until
+
+  validates :currency, presence: true
+  validates :hardware_id, presence: true
+  validates :name, presence:   true,
+                   length:     { maximum: 100 },
+                   uniqueness: { case_sensitive: false }
+  validates :price, presence: true
+  validates :purchased_at, presence: true
+  validates :warranty_until, presence: true
 end

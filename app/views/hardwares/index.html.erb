@@ -1,5 +1,5 @@
-<% provide(:title, 'Positions') %>
-<h1>Positions</h1>
+<% provide(:title, 'Hardwares') %>
+<h1>Hardwares</h1>
 <div class="row">
   <div class="span6 offset3">
     <table class='table table-hover'>
@@ -12,6 +12,9 @@
         <tr>
           <td><%= hardware.name %></td>
           <td>
+            <% if hardware.has_purchase? %>
+              <%= render 'shared/button', path: edit_purchase_path(hardware.purchase), title: 'Edit purchase', icon: 'shopping-cart' %>
+            <% end %>
             <% if current_user.admin? %>
               <%= render 'shared/edit_button',   path: edit_hardware_path(hardware) %>
               <%= render 'shared/delete_button', path: hardware_path(hardware) %>

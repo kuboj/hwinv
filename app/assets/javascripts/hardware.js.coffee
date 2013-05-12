@@ -1,12 +1,16 @@
-unless Array::filter
-  Array::filter = (callback) ->
-    element for element in this when callback(element)
-
 $ = jQuery
 $ ->
   data = JSON.parse($('#location_data').val())
   server_racks = []
   rack_units = []
+
+  $('#purchase_no').on change: ->
+    return if not $(this).is(':checked')
+    $('#purchase_div').hide()
+
+  $('#purchase_yes').on change: ->
+    return if not $(this).is(':checked')
+    $('#purchase_div').show()
 
   $('#location_parent').on change: ->
     return if not $(this).is(':checked')
@@ -16,7 +20,6 @@ $ ->
 
     $('#parent_hardware_div').show()
     $('#positions_div').show()
-    #$('#parent_hardware').change()
 
   $('#location_physical').on change: ->
     return if not $(this).is(':checked')
@@ -41,6 +44,7 @@ $ ->
       $('#server_racks_div').hide()
     else
       $('#server_racks_div').show()
+    $('#server_rack').change()
 
   $('#server_rack').on change: ->
     rack_units = []
@@ -49,14 +53,29 @@ $ ->
       rack_units = server_rack['rack_units'] if server_rack['id'] == this_id
     $('#rack_unit option').remove()
     for rack_unit in rack_units
-      $('#rack_unit').append($('<option></option>').attr('value', rack_unit['id']).text("row #{rack_unit['row_number']}"))
+      text = "row #{rack_unit['row_number']}"
+      if rack_unit['hardwares'].length == 0
+        text += " (free position)"
+      else
+        text += " (already occupied by #{rack_unit['hardwares'].length} pcs of hw)"
+      $('#rack_unit').append($('<option></option>').attr('value', rack_unit['id']).text(text))
     if rack_units.length == 0
       $('#rack_units_div').hide()
     else
       $('#rack_units_div').show()
 
-  #$('#parent_hardware').on change: ->
-
+  $('.key_select').live change: ->
+    if $(this).val() != '' && $(this).attr('cloned') != 'true'
+      $(this).attr('cloned', 'true')
+      $('.parameter_div:first').clone().appendTo('#parameters_fieldset').show()
 
   # init
-  $('#location_parent').click()
+  $('input[type=radio]:checked').change()
+  if $('#name').val() == ''
+    $('input[type=radio]:checked').change()
+    #$('#location_physical').click()
+    #$('#location_parent').click()
+    #$('#purchase_yes').click()
+    #$('#purchase_no').click()
+    $('.parameter_div:first').hide()
+

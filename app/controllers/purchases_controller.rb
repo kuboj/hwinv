@@ -2,23 +2,23 @@ class PurchasesController < ApplicationController
   before_filter :signed_in_user
   before_filter :admin_user, except: :index
 
-  def index
-    @purchases = Purchase.all
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @purchases }
-    end
-  end
-
-  def show
-    @purchase = Purchase.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @purchase }
-    end
-  end
+  #def index
+  #  @purchases = Purchase.all
+  #
+  #  respond_to do |format|
+  #    format.html
+  #    format.json { render json: @purchases }
+  #  end
+  #end
+  #
+  #def show
+  #  @purchase = Purchase.find(params[:id])
+  #
+  #  respond_to do |format|
+  #    format.html
+  #    format.json { render json: @purchase }
+  #  end
+  #end
 
   def new
     @purchase = Purchase.new
@@ -38,7 +38,7 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
+        format.html { redirect_to purchases_path, notice: 'Purchase was successfully created.' }
         format.json { render json: @purchase, status: :created, location: @purchase }
       else
         format.html { render action: "new" }
@@ -52,7 +52,7 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       if @purchase.update_attributes(params[:purchase])
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully updated.' }
+        format.html { redirect_to purchases_path, notice: 'Purchase was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -66,7 +66,7 @@ class PurchasesController < ApplicationController
     @purchase.destroy
 
     respond_to do |format|
-      format.html { redirect_to purchases_url }
+      format.html { redirect_to purchases_url, notice: 'Purchase was successfully deleted.' }
       format.json { head :no_content }
     end
   end

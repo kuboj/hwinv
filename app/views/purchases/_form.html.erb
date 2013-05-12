@@ -1,41 +1,21 @@
-<%= form_for(@purchase) do |f| %>
-  <% if @purchase.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
-
-      <ul>
-      <% @purchase.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@purchase) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.label :purchased_at %>
+      <%= f.date_select :purchased_at %>
+      <%= f.label :warranty_until %>
+      <%= f.date_select :warranty_until %>
+      <%= f.label :price %>
+      <%= f.text_field :price %>
+      <%= f.label :currency %>
+      <%= f.text_field :currency %>
+      <%= f.label :hardware_id %>
+      <%= f.number_field :hardware_id %>
+      <%= f.submit yield(:button_text), class: "btn btn-large btn-primary" %>
+      <%= link_to 'Back', purchases_path, class: "btn btn-large" %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :purchased_at %><br />
-    <%= f.date_select :purchased_at %>
-  </div>
-  <div class="field">
-    <%= f.label :warranty_until %><br />
-    <%= f.date_select :warranty_until %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br />
-    <%= f.text_field :price %>
-  </div>
-  <div class="field">
-    <%= f.label :currency %><br />
-    <%= f.text_field :currency %>
-  </div>
-  <div class="field">
-    <%= f.label :hardware_id %><br />
-    <%= f.number_field :hardware_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

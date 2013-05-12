@@ -14,6 +14,7 @@ class Hardware < ActiveRecord::Base
   has_many   :parts,
              foreign_key: :parent_hardware_id,
              class_name:  to_s
+  has_many   :locations
   belongs_to :parent_hardware,
              class_name:  to_s
   validates :name, presence:   true,

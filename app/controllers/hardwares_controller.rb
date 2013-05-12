@@ -22,10 +22,11 @@ class HardwaresController < ApplicationController
 
   def new
     @hardware     = Hardware.new
-    @hardwares    = Hardware.all.map { |d| [d.name, d.id] }
-    @server_racks = ServerRack.all
-    @rack_units   = RackUnit.all
+    @hardwares    = Hardware.all.map   { |h| [h.name, h.id] }
+    @positions    = Position.all.map   { |p| [p.name, p.id] }
     @datacenters  = Datacenter.all.map { |d| [d.name, d.id] }
+
+    @location_data = Datacenter.location_json
 
     respond_to do |format|
       format.html

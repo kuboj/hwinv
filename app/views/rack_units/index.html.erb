@@ -8,12 +8,14 @@
     <table class='table table-hover'>
       <tr>
         <th>Row number</th>
+        <th>Occupied</th>
         <th>Actions</th>
       </tr>
 
       <% @rack_units.each do |rack_unit| %>
         <tr>
           <td><%= rack_unit.row_number %></td>
+          <td><%= rack_unit.occupied_text %></td>
           <td>
             <% if current_user.admin? %>
               <%= render 'shared/edit_button',   path: edit_datacenter_server_rack_rack_unit_path(@datacenter,

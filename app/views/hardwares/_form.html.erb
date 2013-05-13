@@ -1,7 +1,8 @@
 <div class="row">
   <div class="span6 offset3">
     <%= hidden_field_tag(:location_data, @location_data) %>
-    <%= form_tag '/hardwares', class: 'hardware' do %>
+    <%= hidden_field_tag(:hardware_data, @hardware.get_data_json) %>
+    <%= form_tag @hardware.id.nil? ? new_hardware_path : @hardware , class: 'hardware', method: (@hardware.id.nil? ? :post : :put) do %>
       <%= render 'shared/error_messages', object: @hardware %>
       <%= label_tag :name %>
       <%= text_field_tag :name, @hardware.name %>
@@ -45,13 +46,13 @@
       <% end %>
 
       <%= field_set_tag('Physical location') do %>
-        <%= radio_button_tag(:location, 'parent') %>
+        <%= radio_button_tag(:location, 'parent', @hardware.has_parent? || @hardware.id.nil?) %>
         <%= label_tag(:location_parent, 'As a child hardware') %>
 
         <br />
         <br />
 
-        <%= radio_button_tag(:location, 'physical') %>
+        <%= radio_button_tag(:location, 'physical', !@hardware.has_parent? && !@hardware.id.nil?) %>
         <%= label_tag(:location_physical, 'Select physical location') %>
 
         <br />
@@ -59,13 +60,13 @@
 
         <%= content_tag(:div, id: 'parent_hardware_div') do %>
           <%= label_tag :parent_hardware, 'Parent hardware' %>
-          <%= select_tag(:parent_hardware, options_for_select(@hardwares), include_blank: true,
+          <%= select_tag(:parent_hardware, options_for_select(@hardwares, @hardware.parent_hardware_id), include_blank: true,
                                                                            name: 'parent_hardware_id') %>
         <% end %>
 
         <%= content_tag(:div, id: 'positions_div') do %>
           <%= label_tag :position, 'Position' %>
-          <%= select_tag(:position, options_for_select(@positions), include_blank: true,
+          <%= select_tag(:position, options_for_select(@positions, @hardware.position_id), include_blank: true,
                                                                     name: 'position_id') %>
         <% end %>
 

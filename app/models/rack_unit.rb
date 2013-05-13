@@ -17,4 +17,12 @@ class RackUnit < ActiveRecord::Base
 
   validates :server_rack_id, presence: true
   validates :row_number,     presence: true
+
+  def occupied_text
+    if self.hardwares.empty?
+      'free'
+    else
+      "occupied by #{self.hardwares.size} pcs of hw"
+    end
+  end
 end

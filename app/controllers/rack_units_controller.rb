@@ -4,7 +4,7 @@ class RackUnitsController < ApplicationController
   before_filter :admin_user, except: :index
 
   def index
-    @rack_units = RackUnit.all
+    @rack_units = @server_rack.rack_units
 
     respond_to do |format|
       format.html

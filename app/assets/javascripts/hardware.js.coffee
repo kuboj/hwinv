@@ -71,6 +71,7 @@ $ ->
 
   # init
   $('input[type=radio]:checked').change()
+  $('.parameter_div:first').hide()
   if $('#name').val() == ''
     $('input[type=radio]:checked').change()
     #$('#location_physical').click()
@@ -79,3 +80,20 @@ $ ->
     #$('#purchase_no').click()
     $('.parameter_div:first').hide()
 
+  if $('#hardware_data').val() != ''
+    hw_data = JSON.parse($('#hardware_data').val())
+    console.log(hw_data)
+    if typeof(hw_data.datacenter_id) != 'undefined'
+      $('#datacenter').val(hw_data.datacenter_id)
+      $('#datacenter').change()
+      $('#server_rack').val(hw_data.server_rack_id)
+      $('#server_rack').change()
+      for id in hw_data.rack_unit_ids
+        console.log(id)
+        $("#rack_unit option[value=#{id}]").attr('selected', true)
+    if typeof(hw_data.parameters) != 'undefined'
+      for param in hw_data.parameters
+        console.log(param)
+        $('.parameter_div:last > select.key_select').val(param.key_id)
+        $('.parameter_div:last > input').val(param.value)
+        $('.parameter_div:last > select.key_select').change()

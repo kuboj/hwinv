@@ -63,6 +63,7 @@ class HardwaresController < ApplicationController
 
   def create
     @hardware = Hardware.new(name: params[:name])
+
     if params[:purchase] == 'yes'
       params[:purchased_at] = DateTime.new(
           params[:purchased_at]['date(1i)'].to_i,
@@ -95,6 +96,17 @@ class HardwaresController < ApplicationController
         @datacenters   = Datacenter.all.map { |d| [d.name, d.id] }
         @keys          = Key.all.map { |k| [k.name, k.id] }
         @location_data = Datacenter.location_json
+        @purchase = if @hardware.has_purchase?
+                      @hardware.purchase
+                    else
+                      OpenStruct.new({
+                          name:           '',
+                          price:          '',
+                          currency:       '',
+                          purchased_at:   nil,
+                          warranty_until: nil
+                      })
+                    end
         format.html { render action: "new" }
         format.json { render json: @hardware.errors, status: :unprocessable_entity }
       end
@@ -103,6 +115,28 @@ class HardwaresController < ApplicationController
 
   def update
     @hardware = Hardware.find(params[:id])
+
+    if params[:purchase] == 'yes'
+      params[:purchased_at] = DateTime.new(
+          params[:purchased_at]['date(1i)'].to_i,
+          params[:purchased_at]['date(2i)'].to_i,
+          params[:purchased_at]['date(3i)'].to_i
+      )
+      params[:warranty_until] =
+          DateTime.new(
+              params[:warranty_until]['date(1i)'].to_i,
+              params[:warranty_until]['date(2i)'].to_i,
+              params[:warranty_until]['date(3i)'].to_i
+          )
+      @hardware.add_purchase(params)
+    end
+    if params[:location] == 'parent'
+      @hardware.add_parent(params)
+    elsif params[:location] == 'physical'
+      @hardware.add_location(params)
+    end
+
+    @hardware.add_parameters(params[:key_ids][1..-2], params[:values][1..-2])
 
     respond_to do |format|
       if @hardware.update_attributes(params[:hardware])

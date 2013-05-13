@@ -30,12 +30,41 @@ class Hardware < ActiveRecord::Base
   after_save :create_parameters
   after_destroy :destroy_purchase
 
+  def get_data_json
+    return {}.to_json if self.id.nil?
+    out = {}
+    unless self.locations.empty?
+      locations = self.locations
+      rack_unit_ids  = locations.map { |l| l.rack_unit_id }
+      server_rack_id = RackUnit.find(rack_unit_ids[0]).server_rack_id
+      datacenter_id  = ServerRack.find(server_rack_id).datacenter_id
+
+      out[:rack_unit_ids]  = rack_unit_ids
+      out[:server_rack_id] = server_rack_id
+      out[:datacenter_id]  = datacenter_id
+    end
+
+    out[:parameters] = []
+
+    unless self.parameters.empty?
+      self.parameters.each do |p|
+        out[:parameters] << { key_id: p.key_id, value: p.value }
+      end
+    end
+
+    out.to_json
+  end
+
   def purchase
     Purchase.find_by_hardware_id(self.id)
   end
 
   def has_purchase?
     !!Purchase.find_by_hardware_id(self.id)
+  end
+
+  def has_parent?
+    !self.parent_hardware_id.nil?
   end
 
   def add_parameters(key_ids, values)
@@ -85,7 +114,9 @@ class Hardware < ActiveRecord::Base
   end
 
   def create_parameters
+    self.parameters.each(&:destroy)
     self.key_ids.each_index do |i|
+      next if self.key_ids[i].blank?
       Parameter.create(
           hardware_id: self.id,
           key_id:      self.key_ids[i],
@@ -109,8 +140,6 @@ class Hardware < ActiveRecord::Base
       errors.add(:datacenter_id, 'does not exist') unless Datacenter.exists?(self.datacenter_id)
       errors.add(:server_rack_id, 'does not exist') unless ServerRack.exists?(self.server_rack_id)
       errors.add(:rack_unit_ids, 'do not exist') unless (self.rack_unit_ids ||= []).all? { |id| RackUnit.exists?(id) }
-    else
-      errors.add( 'Location must be set')
     end
   end
 end

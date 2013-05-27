@@ -2,7 +2,7 @@
   <div class="span6 offset3">
     <%= hidden_field_tag(:location_data, @location_data) %>
     <%= hidden_field_tag(:hardware_data, @hardware.get_data_json) %>
-    <%= form_tag @hardware.id.nil? ? new_hardware_path : @hardware , class: 'hardware', method: (@hardware.id.nil? ? :post : :put) do %>
+    <%= form_tag @hardware.id.nil? ? hardwares_path : @hardware , class: 'hardware', method: (@hardware.id.nil? ? :post : :put) do %>
       <%= render 'shared/error_messages', object: @hardware %>
       <%= label_tag :name %>
       <%= text_field_tag :name, @hardware.name %>
